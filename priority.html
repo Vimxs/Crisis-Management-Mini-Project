@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priority Engine | Crisis Response</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #eef2f7;
+    color: #172033;
+}
+
+header {
+    background: #073b63;
+    color: white;
+    padding: 22px 40px;
+}
+
+header h1 {
+    font-size: 25px;
+}
+
+header p {
+    margin-top: 6px;
+    opacity: .8;
+}
+
+nav {
+    background: #052d4b;
+    padding: 12px 40px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 25px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.title h2 {
+    font-size: 25px;
+}
+
+.title p {
+    color: #667085;
+    margin-top: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.box {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.box h3 {
+    margin-bottom: 20px;
+}
+
+.incident {
+    background: #fff5f5;
+    border-left: 5px solid #d92d20;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.incident h2 {
+    color: #b42318;
+    margin-bottom: 6px;
+}
+
+.factor {
+    margin: 17px 0;
+}
+
+.factor label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+input[type=range] {
+    width: 100%;
+}
+
+.score-container {
+    text-align: center;
+    padding: 30px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.score {
+    font-size: 65px;
+    font-weight: bold;
+    color: #d92d20;
+}
+
+.critical {
+    display: inline-block;
+    background: #fee4e2;
+    color: #b42318;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.explanation {
+    margin-top: 25px;
+    background: #f0f9ff;
+    border-left: 4px solid #073b63;
+    padding: 17px;
+    line-height: 1.6;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: #073b63;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #0b568d;
+}
+
+.footer {
+    text-align: center;
+    color: #667085;
+    margin-top: 30px;
+    font-size: 12px;
+}
+
+@media(max-width:800px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🚨 Crisis Response Intelligence System</h1>
+    <p>Dynamic Emergency Priority Engine</p>
+</header>
+
+<nav>
+    <a href="index.html">Dashboard</a>
+    <a href="priority.html">Priority Engine</a>
+    <a href="allocation.html">Resource Allocation</a>
+</nav>
+
+<div class="container">
+
+    <div class="title">
+        <h2>🧠 Emergency Priority Engine</h2>
+        <p>Dynamic incident prioritization using multiple crisis factors</p>
+    </div>
+
+    <div class="grid">
+
+        <!-- LEFT -->
+        <div class="box">
+
+            <div class="incident">
+                <h2>Building Collapse</h2>
+                <p>📍 Yelahanka, Bengaluru</p>
+                <p>👥 120 people affected</p>
+                <p>⏱ Immediate response required</p>
+            </div>
+
+            <h3>Priority Factors</h3>
+
+            <div class="factor">
+                <label>
+                    <span>Severity</span>
+                    <b id="severityValue">90</b>
+                </label>
+                <input type="range" id="severity"
+                       min="0" max="100" value="90">
+            </div>
+
+            <div class="factor">
+                <label>
+                    <span>Impact</span>
+                    <b id="impactValue">85</b>
+                </label>
+                <input type="range" id="impact"
+                       min="0" max="100" value="85">
+            </div>
+
+            <div class="factor">
+                <label>
+                    <span>Urgency</span>
+                    <b id="urgencyValue">95</b>
+                </label>
+                <input type="range" id="urgency"
+                       min="0" max="100" value="95">
+            </div>
+
+            <div class="factor">
+                <label>
+                    <span>Vulnerability</span>
+                    <b id="vulnerabilityValue">70</b>
+                </label>
+                <input type="range" id="vulnerability"
+                       min="0" max="100" value="70">
+            </div>
+
+            <div class="factor">
+                <label>
+                    <span>Accessibility</span>
+                    <b id="accessibilityValue">60</b>
+                </label>
+                <input type="range" id="accessibility"
+                       min="0" max="100" value="60">
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+        <div class="box">
+
+            <h3>Calculated Priority</h3>
+
+            <div class="score-container">
+
+                <div class="score" id="score">84</div>
+
+                <div class="critical">
+                    🔴 CRITICAL PRIORITY
+                </div>
+
+                <div class="explanation">
+
+                    <b>Decision Explanation</b>
+
+                    <p>
+                        The incident receives a high priority because
+                        of its severity, large affected population,
+                        urgency and vulnerability.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button onclick="resetValues()">
+                Reset Factors
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        PROTOTYPE • SIMULATED DATA • DECISION SUPPORT SYSTEM
+    </div>
+
+</div>
+
+
+<script>
+
+const factors = [
+    ["severity", "severityValue"],
+    ["impact", "impactValue"],
+    ["urgency", "urgencyValue"],
+    ["vulnerability", "vulnerabilityValue"],
+    ["accessibility", "accessibilityValue"]
+];
+
+function calculateScore() {
+
+    let severity =
+        Number(document.getElementById("severity").value);
+
+    let impact =
+        Number(document.getElementById("impact").value);
+
+    let urgency =
+        Number(document.getElementById("urgency").value);
+
+    let vulnerability =
+        Number(document.getElementById("vulnerability").value);
+
+    let accessibility =
+        Number(document.getElementById("accessibility").value);
+
+    /*
+      Demonstration weighting model
+      Severity       = 30%
+      Impact         = 25%
+      Urgency        = 20%
+      Vulnerability  = 15%
+      Accessibility  = 10%
+    */
+
+    let score =
+        severity * 0.30 +
+        impact * 0.25 +
+        urgency * 0.20 +
+        vulnerability * 0.15 +
+        accessibility * 0.10;
+
+    document.getElementById("score").innerText =
+        Math.round(score);
+
+    document.getElementById("severityValue").innerText =
+        severity;
+
+    document.getElementById("impactValue").innerText =
+        impact;
+
+    document.getElementById("urgencyValue").innerText =
+        urgency;
+
+    document.getElementById("vulnerabilityValue").innerText =
+        vulnerability;
+
+    document.getElementById("accessibilityValue").innerText =
+        accessibility;
+}
+
+factors.forEach(function(item) {
+
+    document.getElementById(item[0])
+        .addEventListener("input", calculateScore);
+
+});
+
+function resetValues() {
+
+    document.getElementById("severity").value = 90;
+    document.getElementById("impact").value = 85;
+    document.getElementById("urgency").value = 95;
+    document.getElementById("vulnerability").value = 70;
+    document.getElementById("accessibility").value = 60;
+
+    calculateScore();
+}
+
+</script>
+
+</body>
+</html>
