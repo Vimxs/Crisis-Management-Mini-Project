@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crisis Response Intelligence System</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #eef2f7;
+    color: #172033;
+}
+
+header {
+    background: #073b63;
+    color: white;
+    padding: 22px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+header p {
+    opacity: .8;
+    margin-top: 5px;
+}
+
+.badge {
+    background: #ffb020;
+    color: #222;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.container {
+    padding: 25px 35px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.card h4 {
+    color: #667085;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.number {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.red {
+    color: #d92d20;
+}
+
+.orange {
+    color: #f79009;
+}
+
+.green {
+    color: #039855;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+}
+
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.section h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 13px 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 13px;
+}
+
+th {
+    color: #667085;
+    font-size: 12px;
+}
+
+.priority {
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.critical {
+    background: #fee4e2;
+    color: #b42318;
+}
+
+.high {
+    background: #fff3cd;
+    color: #b54708;
+}
+
+.medium {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+button {
+    border: none;
+    background: #073b63;
+    color: white;
+    padding: 9px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #0b568d;
+}
+
+.resource {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.resource strong {
+    display: block;
+}
+
+.available {
+    color: #039855;
+    font-size: 12px;
+}
+
+.map {
+    height: 300px;
+    background:
+        linear-gradient(30deg, transparent 48%, #d4dce5 49%, #d4dce5 51%, transparent 52%),
+        linear-gradient(120deg, transparent 48%, #d4dce5 49%, #d4dce5 51%, transparent 52%),
+        #f4f6f8;
+    background-size: 90px 90px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.map-title {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.marker {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px #777;
+}
+
+.m1 { left: 25%; top: 35%; background: #d92d20; }
+.m2 { left: 65%; top: 25%; background: #f79009; }
+.m3 { left: 48%; top: 65%; background: #d92d20; }
+.m4 { left: 78%; top: 70%; background: #039855; }
+.m5 { left: 35%; top: 75%; background: #f79009; }
+
+.legend {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: white;
+    padding: 10px;
+    border-radius: 7px;
+    font-size: 11px;
+}
+
+.score-box {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.score {
+    font-size: 40px;
+    font-weight: bold;
+    color: #d92d20;
+    text-align: center;
+    margin: 10px;
+}
+
+.slider {
+    margin: 12px 0;
+}
+
+.slider label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+input[type=range] {
+    width: 100%;
+}
+
+.recommendation {
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.recommendation h3 {
+    color: #027a48;
+    margin-bottom: 10px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+.status {
+    font-size: 12px;
+    color: #667085;
+}
+
+@media(max-width:900px) {
+    .cards, .grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>🚨 Crisis Response Intelligence System</h1>
+        <p>Data-Driven Emergency Resource Allocation & Response Prioritization</p>
+    </div>
+
+    <div class="badge">PROTOTYPE • SIMULATED DATA</div>
+</header>
+
+<div class="container">
+
+    <!-- TOP CARDS -->
+    <div class="cards">
+
+        <div class="card">
+            <h4>ACTIVE INCIDENTS</h4>
+            <div class="number">06</div>
+        </div>
+
+        <div class="card">
+            <h4>CRITICAL INCIDENTS</h4>
+            <div class="number red">02</div>
+        </div>
+
+        <div class="card">
+            <h4>AVAILABLE RESOURCES</h4>
+            <div class="number green" id="resources">08</div>
+        </div>
+
+        <div class="card">
+            <h4>DEPLOYED RESOURCES</h4>
+            <div class="number orange" id="deployed">05</div>
+        </div>
+
+    </div>
+
+    <div class="grid">
+
+        <!-- INCIDENT TABLE -->
+        <div class="section">
+
+            <h2>🚨 Incident Priority Ranking</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>INCIDENT</th>
+                        <th>LOCATION</th>
+                        <th>PEOPLE</th>
+                        <th>PRIORITY</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td><b>Building Collapse</b></td>
+                        <td>Yelahanka</td>
+                        <td>120</td>
+                        <td><span class="priority critical">94 CRITICAL</span></td>
+                        <td class="status">Awaiting Rescue</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Flash Flood</b></td>
+                        <td>Hebbal</td>
+                        <td>300</td>
+                        <td><span class="priority critical">91 CRITICAL</span></td>
+                        <td class="status">Resource Allocated</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Road Accident</b></td>
+                        <td>Hebbal Flyover</td>
+                        <td>15</td>
+                        <td><span class="priority high">73 HIGH</span></td>
+                        <td class="status">Monitoring</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Fire</b></td>
+                        <td>Rajajinagar</td>
+                        <td>40</td>
+                        <td><span class="priority high">68 HIGH</span></td>
+                        <td class="status">Monitoring</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Medical Emergency</b></td>
+                        <td>Jayanagar</td>
+                        <td>8</td>
+                        <td><span class="priority medium">51 MEDIUM</span></td>
+                        <td class="status">Monitoring</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- MAP -->
+        <div class="section">
+
+            <h2>🗺️ Emergency Situation Map</h2>
+
+            <div class="map">
+
+                <div class="map-title">
+                    BENGALURU EMERGENCY OVERVIEW
+                </div>
+
+                <div class="marker m1"></div>
+                <div class="marker m2"></div>
+                <div class="marker m3"></div>
+                <div class="marker m4"></div>
+                <div class="marker m5"></div>
+
+                <div class="legend">
+                    🔴 Critical &nbsp;
+                    🟠 High &nbsp;
+                    🟢 Resource
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRIORITY ENGINE -->
+        <div class="section">
+
+            <h2>🧠 Dynamic Priority Engine</h2>
+
+            <div class="score-box">
+
+                <b>Selected Incident: Building Collapse</b>
+
+                <div class="slider">
+                    <label>
+                        <span>Severity</span>
+                        <span id="sevVal">90</span>
+                    </label>
+                    <input id="severity" type="range" min="0" max="100" value="90">
+                </div>
+
+                <div class="slider">
+                    <label>
+                        <span>Impact</span>
+                        <span id="impVal">85</span>
+                    </label>
+                    <input id="impact" type="range" min="0" max="100" value="85">
+                </div>
+
+                <div class="slider">
+                    <label>
+                        <span>Urgency</span>
+                        <span id="urgVal">95</span>
+                    </label>
+                    <input id="urgency" type="range" min="0" max="100" value="95">
+                </div>
+
+                <div class="slider">
+                    <label>
+                        <span>Vulnerability</span>
+                        <span id="vulVal">70</span>
+                    </label>
+                    <input id="vulnerability" type="range" min="0" max="100" value="70">
+                </div>
+
+                <div class="slider">
+                    <label>
+                        <span>Accessibility</span>
+                        <span id="accVal">60</span>
+                    </label>
+                    <input id="accessibility" type="range" min="0" max="100" value="60">
+                </div>
+
+                <div class="score" id="score">84</div>
+
+                <center>
+                    <span class="priority critical">CRITICAL PRIORITY</span>
+                </center>
+
+            </div>
+
+            <small>
+                Demonstration weighting model:
+                Severity 30% • Impact 25% • Urgency 20% •
+                Vulnerability 15% • Accessibility 10%
+            </small>
+
+        </div>
+
+
+        <!-- RESOURCE ALLOCATION -->
+        <div class="section">
+
+            <h2>🚑 Resource Allocation Recommendation</h2>
+
+            <div class="recommendation">
+
+                <h3>✓ Recommended Allocation</h3>
+
+                <p><b>Incident:</b> Building Collapse</p>
+                <p><b>Resource:</b> Ambulance A-04</p>
+                <p><b>Distance:</b> 3.2 km</p>
+                <p><b>Capacity:</b> Suitable</p>
+                <p><b>Availability:</b> Available</p>
+
+                <br>
+
+                <button onclick="allocate()">
+                    ALLOCATE RESOURCE
+                </button>
+
+                <p id="allocationMessage"></p>
+
+            </div>
+
+            <br>
+
+            <div class="resource">
+                <div>
+                    <strong>🚑 Ambulances</strong>
+                    <span class="available">4 Available</span>
+                </div>
+                <b>4 / 6</b>
+            </div>
+
+            <div class="resource">
+                <div>
+                    <strong>🚒 Rescue Teams</strong>
+                    <span class="available">3 Available</span>
+                </div>
+                <b>3 / 5</b>
+            </div>
+
+            <div class="resource">
+                <div>
+                    <strong>🏥 Medical Units</strong>
+                    <span class="available">5 Available</span>
+                </div>
+                <b>5 / 8</b>
+            </div>
+
+        </div>
+
+
+        <!-- WORKFLOW -->
+        <div class="section full">
+
+            <h2>⚙️ Decision Support Workflow</h2>
+
+            <center style="font-size:18px; padding:15px;">
+                <b>INPUT</b>
+                →
+                <b>PROCESS</b>
+                →
+                <b style="color:#d92d20;">PRIORITIZE</b>
+                →
+                <b style="color:#f79009;">ALLOCATE</b>
+                →
+                <b style="color:#039855;">VISUALIZE</b>
+            </center>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const inputs = [
+    ["severity", "sevVal"],
+    ["impact", "impVal"],
+    ["urgency", "urgVal"],
+    ["vulnerability", "vulVal"],
+    ["accessibility", "accVal"]
+];
+
+function calculateScore() {
+
+    let severity = Number(document.getElementById("severity").value);
+    let impact = Number(document.getElementById("impact").value);
+    let urgency = Number(document.getElementById("urgency").value);
+    let vulnerability = Number(document.getElementById("vulnerability").value);
+    let accessibility = Number(document.getElementById("accessibility").value);
+
+    let score =
+        severity * 0.30 +
+        impact * 0.25 +
+        urgency * 0.20 +
+        vulnerability * 0.15 +
+        accessibility * 0.10;
+
+    document.getElementById("score").innerText = Math.round(score);
+
+    document.getElementById("sevVal").innerText = severity;
+    document.getElementById("impVal").innerText = impact;
+    document.getElementById("urgVal").innerText = urgency;
+    document.getElementById("vulVal").innerText = vulnerability;
+    document.getElementById("accVal").innerText = accessibility;
+}
+
+inputs.forEach(([input, output]) => {
+    document.getElementById(input).addEventListener("input", calculateScore);
+});
+
+function allocate() {
+
+    document.getElementById("allocationMessage").innerHTML =
+        "<br><b style='color:#027a48;'>✓ Ambulance A-04 successfully allocated!</b>";
+
+    let resources = document.getElementById("resources");
+    let deployed = document.getElementById("deployed");
+
+    resources.innerText = "07";
+    deployed.innerText = "06";
+}
+
+</script>
+
+</body>
+</html>
