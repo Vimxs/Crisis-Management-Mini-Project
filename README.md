@@ -1,4 +1,4 @@
-# 🚨 Crisis Response Intelligence System
+# Crisis Response Intelligence System
 
 ### Data-Driven Emergency Resource Allocation & Response Prioritization
 
@@ -6,7 +6,7 @@ A decision-support system for prioritizing multiple simultaneous emergency incid
 
 ---
 
-## 📌 Overview
+##  Overview
 
 During large-scale emergencies, multiple incidents can occur simultaneously while response agencies operate with limited ambulances, rescue teams, medical resources, shelters, and response time.
 
@@ -21,11 +21,11 @@ The system combines heterogeneous crisis information into an interpretable workf
 
 **DATA → PROCESS → PRIORITIZE → ALLOCATE → VISUALIZE**
 
-> ⚠️ This is an academic decision-support prototype. The system is not intended to autonomously control emergency operations. Final decisions remain subject to review by authorized emergency-response personnel.
+>  This is an academic decision-support prototype. The system is not intended to autonomously control emergency operations. Final decisions remain subject to review by authorized emergency-response personnel.
 
 ---
 
-# 🎯 Objectives
+# Objectives
 
 The project aims to:
 
@@ -41,7 +41,7 @@ The project aims to:
 
 ---
 
-# 🔍 Problem Statement
+# Problem Statement
 
 Emergency agencies may face multiple simultaneous incidents while operating under limited resources.
 
@@ -62,7 +62,7 @@ CRIS focuses on this decision layer by combining incident conditions with resour
 
 ---
 
-# 💡 Proposed Solution
+# Proposed Solution
 
 The proposed system combines:
 
